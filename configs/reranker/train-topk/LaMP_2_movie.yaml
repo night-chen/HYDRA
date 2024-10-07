@@ -1,0 +1,50 @@
+task: LaMP_2_movie
+mode: train
+use_profile: True
+train_dir: data/reranker-infer/LaMP_2_movie/42_train_full_0731.jsonl
+train_infer: data/reranker-infer/LaMP_2_movie/train_full.jsonl
+eval_history: data/reranker/with_profile/topk-new/LaMP_2_movie/42_dev_history.jsonl
+eval_query: data/reranker/with_profile/topk-new/LaMP_2_movie/42_dev_query.jsonl
+test_infer: data/reranker-infer/LaMP_2_movie/dev_full.jsonl
+partial_data:
+  users: 100
+retriever:
+  num_retrieve: 10
+  model: bm25
+  is_ranked: True
+  max_length: 1024
+  tokenizer: None
+generator:
+  model_name: gpt
+  tokenizer_name: gpt
+  max_length: 64
+  data_frac: 0
+  frac_len: 0
+  output_dir: data/hydra/reranker/LaMP_2_movie/
+  batch_size: 8
+  token: hf_vpwLytvCDSCgTJryTUagradeoXDSzoUsJ
+  seed: 40
+  temperature: 0
+  tp_per_worker: 1
+  num_data_frac: 1
+  num_return_sequences: 1
+  frequency_penalty: 0 
+  presence_penalty: 0 
+  stop: None
+  openai_credentials: chao-3.5
+trainer:
+  model_name:  allenai/longformer-base-4096
+  tokenizer_name: allenai/longformer-base-4096
+  output_dir: checkpoints/hydra/reranker-LaMP_2_movie-train
+  save_dir: checkpoints/hydra/reranker-LaMP_2_movie-test
+  learning_rate: 2.0e-5
+  per_device_train_batch_size: 64
+  per_device_eval_batch_size: 32
+  num_train_epochs: 2
+  weight_decay: 0.01
+  save_strategy: epoch
+  push_to_hub: False
+  gradient_accumulation_steps: 1
+  l2_reg_coef: 1.0
+  energy_temp: 5.0
+  add_special_tokens: False

@@ -1,0 +1,30 @@
+task: LaMP_2_movie
+mode: test
+use_profile: True
+input_dir: <DATA_PATH>
+partial_data:
+  users: 50
+retriever:
+  num_retrieve: 1
+  model: bm25
+  is_ranked: True
+  max_length: 1024
+  tokenizer: None
+generator:
+  model_name: gpt
+  tokenizer_name: gpt
+  max_length: 64
+  data_frac: 0
+  frac_len: 0
+  output_dir: <OUTPUT_PATH>
+  batch_size: 8
+  token: <HUGGINGFACE_TOKEN>
+  seed: 42
+  temperature: 1
+  tp_per_worker: 1
+  num_data_frac: 1
+  num_return_sequences: 8
+  frequency_penalty: 0 
+  presence_penalty: 0 
+  stop: None
+  openai_credentials: <CREDENTIALS_CONFIG>
